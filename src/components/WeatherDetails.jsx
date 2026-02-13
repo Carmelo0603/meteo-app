@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
-import MyNavbar from "./MyNavbar";
 
 const WeatherDetails = () => {
   const params = useParams();
@@ -85,24 +84,29 @@ const WeatherDetails = () => {
 
   return (
     <>
-      <MyNavbar></MyNavbar>;
-      <Container fluid className={`p-5 min-vh-100 ${getWeatherClass()}`}>
-        <Link to="/" className="btn btn-outline-secondary mb-3">
+      <Container fluid className={`p-3 min-vh-100 ${getWeatherClass()}`}>
+        <Link to="/" className="btn btn-secondary mb-3">
           Indietro
         </Link>
 
         {weather && (
           <Card className="text-center mb-4 p-4 shadow-lg border-0 glass-card bg-opacity-10">
             <Card.Body>
-              <h2>
-                {weather.name}, {weather.sys.country}
-              </h2>
-              <div className="display-1">{Math.round(weather.main.temp)}°C</div>
-              <p className="lead text-capitalize">{weather.weather[0].description}</p>
-              <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icona meteo" />
-              <p>
-                Umidità: {weather.main.humidity}% | Vento: {weather.wind.speed} m/s
-              </p>
+              <Row className="align-items-center">
+                <Col>
+                  <h2 className="display-2 fw-bold">
+                    {weather.name}, {weather.sys.country}
+                  </h2>
+                  <div className="display-1">{Math.round(weather.main.temp)}°C</div>
+                </Col>
+                <Col className="">
+                  <p className="lead text-capitalize m-0">{weather.weather[0].description}</p>
+                  <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icona meteo" className="m-0" />
+                  <p>
+                    Umidità: {weather.main.humidity}% | Vento: {weather.wind.speed} m/s
+                  </p>
+                </Col>
+              </Row>
             </Card.Body>
           </Card>
         )}
@@ -111,7 +115,7 @@ const WeatherDetails = () => {
         {forecast.length > 0 ? (
           <Row className="d-flex justify-content-center">
             {forecast.map((day, index) => (
-              <Col key={index} md={4} xs={6} lg={3} className="mb-3 mt-3">
+              <Col key={index} md={4} xs={6} lg={3} className="p-1">
                 <Card className="h-100 text-center border-0 shadow-sm glass-card">
                   <Card.Body>
                     <Card.Title style={{ fontSize: "1rem" }}>
