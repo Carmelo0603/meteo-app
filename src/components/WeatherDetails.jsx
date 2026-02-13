@@ -9,7 +9,7 @@ const WeatherDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const API_KEY = "ef1a9c1ac88954fc2f872e44c97a9eeb";
+  const API_KEY = "4581ed4a75ffef0475104ebe50dad4bb";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,14 +69,27 @@ const WeatherDetails = () => {
       </Alert>
     );
 
+  const getWeatherClass = () => {
+    if (!weather) return "bg-default";
+    const main = weather.weather[0].main.toLowerCase();
+
+    if (main.includes("clear")) return "bg-sunny";
+    if (main.includes("cloud")) return "bg-cloudy";
+    if (main.includes("rain") || main.includes("drizzle")) return "bg-rainy";
+    if (main.includes("snow")) return "bg-snowy";
+    if (main.includes("thunderstorm")) return "bg-stormy";
+
+    return "bg-default";
+  };
+
   return (
-    <Container className="mt-5">
+    <Container fluid className={`p-5 min-vh-100 ${getWeatherClass()}`}>
       <Link to="/" className="btn btn-outline-secondary mb-3">
         Indietro
       </Link>
 
       {weather && (
-        <Card className="text-center mb-4 p-4 shadow-lg border-0 bg-info bg-opacity-10">
+        <Card className="text-center mb-4 p-4 shadow-lg border-0 glass-card bg-opacity-10">
           <Card.Body>
             <h2>
               {weather.name}, {weather.sys.country}
@@ -93,10 +106,10 @@ const WeatherDetails = () => {
 
       <h3 className="mb-3">Prossimi 5 Giorni (ore 12:00)</h3>
       {forecast.length > 0 ? (
-        <Row>
+        <Row className="d-flex justify-content-center">
           {forecast.map((day, index) => (
-            <Col key={index} md={2} xs={6} className="mb-3">
-              <Card className="h-100 text-center border-0 shadow-sm">
+            <Col key={index} md={2} xs={6} className="mb-3 mt-3">
+              <Card className="h-100 text-center border-0 shadow-sm glass-card">
                 <Card.Body>
                   <Card.Title style={{ fontSize: "1rem" }}>
                     {new Date(day.dt * 1000).toLocaleDateString("it-IT", { weekday: "short", day: "numeric" })}
