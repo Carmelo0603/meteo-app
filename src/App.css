@@ -1,7 +1,3 @@
-.min-vh-100 {
-  min-height: 100vh;
-}
-
 .bg-sunny {
   background: linear-gradient(to top, #349ce1, #e46e37);
   color: rgb(255, 255, 255);
@@ -13,4 +9,10 @@
 .bg-rainy {
   background: linear-gradient(to top, #373b44, #184184);
   color: white;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }

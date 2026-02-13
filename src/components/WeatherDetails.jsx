@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
+import WeatherChart from "./WeatherChart";
 
 const WeatherDetails = () => {
   const params = useParams();
@@ -8,6 +9,7 @@ const WeatherDetails = () => {
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [chartData, setChartData] = useState(null);
 
   const API_KEY = "4581ed4a75ffef0475104ebe50dad4bb";
 
@@ -36,6 +38,7 @@ const WeatherDetails = () => {
             if (forecastData.list) {
               const dailyForecast = forecastData.list.filter((reading) => reading.dt_txt.includes("12:00:00"));
               setForecast(dailyForecast);
+              setChartData(forecastData.list);
             }
           } else {
             console.warn("Previsioni non disponibili (probabilmente API Key in fase di attivazione)");
@@ -84,13 +87,13 @@ const WeatherDetails = () => {
 
   return (
     <>
-      <Container fluid className={`p-3 min-vh-100 ${getWeatherClass()}`}>
+      <Container fluid className={` p-3  ${getWeatherClass()}`}>
         <Link to="/" className="btn btn-secondary mb-3">
           Indietro
         </Link>
 
         {weather && (
-          <Card className="text-center mb-4 p-4 shadow-lg border-0 glass-card bg-opacity-10">
+          <Card className="text-center p-4 shadow-lg border-0 glass-card bg-opacity-10">
             <Card.Body>
               <Row className="align-items-center">
                 <Col>
@@ -110,6 +113,13 @@ const WeatherDetails = () => {
             </Card.Body>
           </Card>
         )}
+        {chartData && (
+          <Row className="my-3">
+            <Col>
+              <WeatherChart data={chartData} city={weather.name} />
+            </Col>
+          </Row>
+        )}
 
         <h3 className="mb-3">Prossimi 5 Giorni (ore 12:00)</h3>
         {forecast.length > 0 ? (
@@ -123,7 +133,7 @@ const WeatherDetails = () => {
                     </Card.Title>
                     <img src={`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt="icon" />
                     <div className="fw-bold">{Math.round(day.main.temp)}°C</div>
-                    <small className="text-muted">{day.weather[0].description}</small>
+                    <small className="text-white">{day.weather[0].description}</small>
                   </Card.Body>
                 </Card>
               </Col>
