@@ -9,7 +9,7 @@ const WeatherDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const API_KEY = "`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`";
+  const API_KEY = "ef1a9c1ac88954fc2f872e44c97a9eeb";
 
   useEffect(() => {
     const fetchData = async () => {
