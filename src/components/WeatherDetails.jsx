@@ -64,7 +64,7 @@ const WeatherDetails = () => {
             </h2>
             <div className="display-1">{Math.round(weather.main.temp)}°C</div>
             <p className="lead text-capitalize">{weather.weather[0].description}</p>
-            <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icona meteo" />
+            <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icona meteo" />
             <p>
               Umidità: {weather.main.humidity}% | Vento: {weather.wind.speed} m/s
             </p>
@@ -81,7 +81,7 @@ const WeatherDetails = () => {
                 <Card.Title style={{ fontSize: "1rem" }}>
                   {new Date(day.dt * 1000).toLocaleDateString("it-IT", { weekday: "short", day: "numeric" })}
                 </Card.Title>
-                <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt="icon" />
+                <img src={`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt="icon" />
                 <div className="fw-bold">{Math.round(day.main.temp)}°C</div>
                 <small className="text-muted">{day.weather[0].description}</small>
               </Card.Body>
